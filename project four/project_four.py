@@ -1,45 +1,72 @@
-# Financing and Budget Application
-from ast import Break
-import time
+# Banking Application
 
-balance = 0
+def show_balance(balance):
+    print("***********************")
+    print(f"Your balance is ${balance:.2f}")
+    print("***********************")
 
-def typing_animation():
-    print(i, end="",flush=True)
-    time.sleep(0.03)
+def deposit():
+    print("***********************")
+    amount = float(input("Enter an amount to be deposited: "))
+    print("***********************")
 
-# def goodbye():
-#    goodbye = ("Thank you for using our services. Have a nice day!")
-#    for i in str(goodbye):
-#        typing_animation()
-
-
-
-print("======================================")
-user = input("Hello. Enter your username: ")
-welcome = ("\nWelcome " + user + "!\n")
-for i in str(welcome):
-    typing_animation()
-print("\n======================================")
-
-while True:
-    choice = input("What would you like to do today?\n1. Check Balance\n2. Add Income\n3. Subtract Expense\n4. Budget Application\nEnter Input: ")
-    if choice.isdigit():
-        choice = int(choice)
-        if choice == 1:
-            print("\nYour balance is", balance,".")
-            choice1 = input("\nWould you like to do another action? (y/n): ")
-            if choice1 != "y":
-                goodbye = ("Thank you for using our services. Have a nice day!")
-                for i in str(goodbye):
-                    typing_animation()
-                break
-            else:
-                choice1 = False
+    if amount < 0:
+        print("***********************")
+        print("That's not a valid amount.")
+        print("***********************")
+        return 0 
     else:
-        retry = ("Please input a valid input and try again.")
-        for i in str(retry):
-                typing_animation()
+        return amount
 
-        
+def withdraw(balance):
+    print("***********************")
+    amount = float(input("Enter amount to be withdrawn: "))
+    print("***********************")
 
+    if amount > balance:
+        print("***********************")
+        print("Insufficent Funds")
+        print("***********************")
+        return 0
+    elif amount < 0:
+        print("***********************")
+        print("Amount must be greater than 0.")
+        print("***********************")
+        return 0
+    else:
+        return amount
+
+def main():
+    balance = 0
+    is_running = True
+
+    while is_running:
+        print("***********************")
+        print("    Banking Program    ")
+        print("***********************")
+        print("1.Show Balance")
+        print("2.Deposit")
+        print("3.Withdraw")
+        print("4.Exit")
+        print("***********************")
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            show_balance(balance)
+        elif choice == '2':
+            balance += deposit()
+        elif choice == '3':
+            balance -= withdraw(balance)
+        elif choice == '4':
+            is_running = False
+        else:
+            print("***********************")
+            print("That is not a valid choice.")
+            print("***********************")
+
+    print("***********************")
+    print("Thank you! Have a nice day!")
+    print("***********************")
+
+if __name__ == '__main__':
+    main()
